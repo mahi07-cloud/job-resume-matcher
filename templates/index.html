@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Resume Matcher</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Tailwind CSS (optional for more styles) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Custom CSS -->
+    <style>
+        /* Remove or Comment out the animation to stop the transition */
+        @keyframes transformTitle {
+            0% {
+                transform: scale(1) rotate(0deg);
+                color: #6a11cb;
+                font-size: 3rem; /* Initial text size */
+            }
+
+            25% {
+                transform: scale(1.3) rotate(5deg);
+                color: #2575fc;
+                font-size: 3.5rem; /* Increase text size slightly */
+            }
+
+            50% {
+                transform: scale(1) rotate(-5deg);
+                color: #f56c42;
+                font-size: 3rem; /* Reset to normal size */
+            }
+
+            75% {
+                transform: scale(1.3) rotate(10deg);
+                color: #2ecc71;
+                font-size: 3.5rem; /* Increase size again */
+            }
+
+            100% {
+                transform: scale(1) rotate(0deg);
+                color: #6a11cb;
+                font-size: 3rem; /* Final reset to initial size */
+            }
+        }
+
+        /* Apply animation to the h1 tag */
+        h1 {
+            font-family: 'Arial', sans-serif;
+            font-weight: bold;
+            text-transform: uppercase;
+            /* animation: transformTitle 4s infinite;  <-- Disable this line */
+            display: inline-block;
+            transition: font-size 0.5s ease;
+        }
+
+        /* Styling for form elements */
+        textarea {
+            width: 100%;
+            height: 150px;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #6a11cb;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #2575fc;
+        }
+
+        /* Table styling for match history */
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body class="bg-light">
+
+    <!-- Header Section -->
+    <div class="container text-center mt-5">
+        <h1>Job Resume Matcher</h1>
+    </div>
+
+    <!-- Form for job description and resume -->
+    <div class="container mt-5">
+        <form method="POST">
+            <div class="form-group">
+                <textarea name="job_desc" class="form-control" placeholder="Enter Job Description" required></textarea>
+            </div>
+            <div class="form-group mt-3">
+                <textarea name="resume" class="form-control" placeholder="Enter Resume" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Match</button>
+        </form>
+    </div>
+
+    <!-- Display Match Result -->
+    {% if match_result %}
+        <div class="container mt-4 text-center">
+            <h4>{{ match_result }}</h4>
+        </div>
+    {% endif %}
+
+    <!-- Display Matched Skills -->
+    {% if matched_skills %}
+        <div class="container mt-4">
+            <h3>Matched Skills:</h3>
+            <ul class="list-group">
+                {% for skill in matched_skills %}
+                    <li class="list-group-item">{{ skill }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <!-- Display Match History -->
+    <div class="container mt-5">
+        <h2>Match History:</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Job Description</th>
+                    <th>Resume</th>
+                    <th>Score</th>
+                    <th>Timestamp</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for match in history %}
+                    <tr>
+                        <td>{{ match[0] }}</td>
+                        <td>{{ match[1] }}</td>
+                        <td>{{ match[2] }}</td>
+                        <td>{{ match[3] }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Bootstrap JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
