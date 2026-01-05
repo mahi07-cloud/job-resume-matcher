@@ -19,9 +19,4 @@ A smart web application that matches resumes with job descriptions using natural
 - **Parsing Tools**: PyMuPDF / python-docx
 - **Database**: SQLite (optional)
 
-## 📸 Screenshots
-
-*(Add screenshots of the upload form, results page, and score display here)*
-
-## 📁 Project Structure
 
